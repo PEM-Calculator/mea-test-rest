@@ -1,0 +1,43 @@
+body {
+	padding    : 10px;
+	font       : 11pt Arial;
+	background : #fff;
+}
+
+.loading {
+	width      : 12px;
+	height     : 5px;
+	background : url('../img/ajax-dots.gif') no-repeat center;
+	display    : inline-block;
+}
+
+.time {
+	float     : right;
+	font-size : 80%;
+	display   : inline-block;
+}
+
+.time::before {
+	content : 'Время ';
+}
+
+.logline {
+	padding          : 5px 8px;
+	background-color : #d0ced1;
+	border           : 1px solid #afadb0;
+}
+
+.info {
+	background-color : #e0ecf9;
+	border-color     : #c1d0ff;
+}
+
+.fail {
+	background-color : #ff9999;
+	border-color     : #e06a68;
+}
+
+.success {
+	background-color : #89ff96;
+	border-color     : #3ec365;
+}
