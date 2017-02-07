@@ -5,7 +5,7 @@ body {
 }
 
 .loading {
-	width      : 12px;
+	width      : 16px;
 	height     : 5px;
 	background : url('../img/ajax-dots.gif') no-repeat center;
 	display    : inline-block;

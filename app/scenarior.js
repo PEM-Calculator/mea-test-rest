@@ -12,7 +12,7 @@
  * @returns {createTask}
  */
 let scenarior = function (_logbox, _scenarioName, _logging = true, cb = null) {
-	this.logbox = $(_logbox);
+	this.logbox = _logbox;
 	this.scenarioName = ('Сценарий ' + (_scenarioName ? '`' + _scenarioName + '`' : '')).trim();
 	this.logging = _logging;
 	this.callback = cb;
@@ -33,8 +33,8 @@ let scenarior = function (_logbox, _scenarioName, _logging = true, cb = null) {
 			.insertBefore(this.loading);
 
 		if (this.logging) {
-			let m = (cls == 'fail') ? console.error:console.info;
-			if(args.length)
+			let m = (cls == 'fail') ? console.error : console.info;
+			if (args.length)
 				m.call(console, msg, args);
 			else
 				m.call(console, msg);
@@ -122,7 +122,7 @@ let scenarior = function (_logbox, _scenarioName, _logging = true, cb = null) {
 				this.print(`Шаг ${title} завершился удачно<i class="time">${length} мс</i>`, 'success', args);
 				this.nextStep();
 			}
-			catch(ex) {
+			catch (ex) {
 				this.print(`Во время выполнения теста вызвано исключение:<blockquote>${ex}</blockquote>`, 'fail', ex);
 				this.finish(true);
 			}
@@ -136,7 +136,7 @@ let scenarior = function (_logbox, _scenarioName, _logging = true, cb = null) {
 	this.finish = function (isFail = false) {
 		let length = +Date.now() - this.startDate;
 
-		if(isFail) {
+		if (isFail) {
 			this.print(`${this.scenarioName} завершился с ошибкой<i class="time">${length} мс</i>`, 'fail');
 		}
 		else {

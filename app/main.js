@@ -4,7 +4,7 @@
 "use strict";
 
 let prefix = '/api';
-let box = testBox;
+let box = $('#testBox');
 
 // run
 $(x => {
@@ -53,15 +53,16 @@ let registerScenario = function (username, password, cb) {
  */
 let METH = {
 	errorHandler(xhr) {
-		console.error('Error #%s%s',
+		console.error('ERROR #%s%s',
 			xhr.status,
 			xhr.responseJSON ? ': ' + xhr.responseJSON.message : '',
 			xhr.responseJSON || xhr.responseText,
 			xhr);
 	},
 
-	ajax(url, method, jsonObject, success, fail) {
+	ajax(url, method, headers, jsonObject, success, fail) {
 		$.ajax(url, {
+			headers: headers,
 			contentType: 'application/json; charset=utf-8',
 			method: method,
 			data: JSON.stringify(jsonObject),
@@ -71,18 +72,39 @@ let METH = {
 			.fail(fail || METH.errorHandler);
 	},
 
+	/**
+	 * Метод регистрации нового пользователя
+	 * @param username
+	 * @param password
+	 * @param email
+	 * @param success
+	 * @param fail
+	 */
 	accountRegister(username, password, email, success, fail) {
 		let obj = {username, password, email};
-		METH.ajax(prefix + '/account/register', 'PUT', obj, success, fail);
+		METH.ajax(prefix + '/account/register', 'PUT', null, obj, success, fail);
 	},
 
+	/**
+	 * Метод авторизации пользвоателя
+	 * @param username
+	 * @param password
+	 * @param success
+	 * @param fail
+	 */
 	accountEnter(username, password, success, fail) {
 		let obj = {username, password};
-		METH.ajax(prefix + '/account/login', 'POST', obj, success, fail);
+		METH.ajax(prefix + '/account/login', 'POST', null, obj, success, fail);
 	},
 
+	/**
+	 * Метод выхода пользователя из системы
+	 * @param token
+	 * @param success
+	 * @param fail
+	 */
 	accountExit({token}, success, fail) {
-		let obj = {token};
-		METH.ajax(prefix + '/account/logout', 'POST', obj, success, fail);
+		let headers = {'Authorization-Token': token};
+		METH.ajax(prefix + '/account/logout', 'POST', headers, null, success, fail);
 	},
 };
